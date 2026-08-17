@@ -1,0 +1,21 @@
+name: sentiment-ai
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - nltk
+  - jupyter
+  - pip:
+      - beautifulsoup4
+      - lxml
+      - datasets
+      - transformers
+      - torch
+      - streamlit
+      - joblib
