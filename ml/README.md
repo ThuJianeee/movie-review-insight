@@ -36,6 +36,17 @@ cd src
 python data_loader.py
 ```
 
+### Optional: crawl your own data (assignment requirement c)
+
+```bash
+cd src
+python crawler.py --titles tt0111161 tt0068646 --pages 3
+```
+
+This crawls IMDb user reviews (polite 1.5 s delay), maps star ratings to sentiment
+labels (>=7 positive, <=4 negative, 5–6 discarded) and writes
+`data/crawled_reviews.csv`. Every training script then accepts `--dataset crawled`.
+
 ## 3. Train and evaluate
 
 ```bash
