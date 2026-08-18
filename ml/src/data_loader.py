@@ -59,13 +59,27 @@ def load_imdb() -> pd.DataFrame:
     return df.sample(frac=1.0, random_state=42).reset_index(drop=True)
 
 
+def load_crawled(filename: str = "crawled_reviews.csv") -> pd.DataFrame:
+    """Reviews collected by src/crawler.py (assignment requirement 'c')."""
+    path = os.path.join(DATA_DIR, filename)
+    if not os.path.exists(path):
+        raise FileNotFoundError(
+            f"{path} not found. Run `python crawler.py` first to crawl reviews."
+        )
+    df = pd.read_csv(path)[["text", "label"]].dropna()
+    df["label"] = df["label"].astype(int)
+    return df.sample(frac=1.0, random_state=42).reset_index(drop=True)
+
+
 def load_dataset_by_name(name: str = "cornell") -> pd.DataFrame:
     name = name.lower()
     if name == "cornell":
         return load_cornell()
     if name == "imdb":
         return load_imdb()
-    raise ValueError(f"Unknown dataset '{name}'. Use 'cornell' or 'imdb'.")
+    if name == "crawled":
+        return load_crawled()
+    raise ValueError(f"Unknown dataset '{name}'. Use 'cornell', 'imdb' or 'crawled'.")
 
 
 if __name__ == "__main__":
