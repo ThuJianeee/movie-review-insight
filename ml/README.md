@@ -36,6 +36,17 @@ cd src
 python data_loader.py
 ```
 
+### Optional: crawl your own data (assignment requirement c)
+
+```bash
+cd src
+python crawler.py --titles tt0111161 tt0068646 --pages 3
+```
+
+This crawls IMDb user reviews (polite 1.5 s delay), maps star ratings to sentiment
+labels (>=7 positive, <=4 negative, 5–6 discarded) and writes
+`data/crawled_reviews.csv`. Every training script then accepts `--dataset crawled`.
+
 ## 3. Train and evaluate
 
 ```bash
@@ -91,9 +102,12 @@ python predict.py --model tfidf_logreg --text "The plot was predictable and dull
 ml/
 ├── environment.yml            conda environment
 ├── app.py                     Streamlit demo UI
+├── docs/
+│   └── background_study.md    problem, significance, methods (report sections 1-2)
 ├── src/
+│   ├── crawler.py             IMDb review web crawler -> data/crawled_reviews.csv
 │   ├── data_loader.py         downloads/loads Cornell or IMDb data
-│   ├── preprocess.py          HTML strip, lowercase, stopwords, lemmatisation
+│   ├── preprocess.py          HTML strip, lowercase, stopwords, lemmatisation, optional stemming
 │   ├── split.py               one shared 80/20 stratified split (seed 42)
 │   ├── evaluation.py          metrics, confusion matrices, comparison chart
 │   ├── model1_naive_bayes.py
@@ -105,6 +119,17 @@ ml/
 ├── models/                    saved trained models (auto-created)
 └── results/                   metrics + figures (auto-created)
 ```
+
+## Assignment requirement coverage
+
+| Requirement | Where |
+|---|---|
+| a. NLP problem chosen | Sentiment analysis - `docs/background_study.md` |
+| b. Background study | `docs/background_study.md` |
+| c. Web crawler / reliable dataset | `src/crawler.py`, `src/data_loader.py` |
+| d. Preprocessing + feature extraction | `src/preprocess.py`, BoW/TF-IDF/DistilBERT in each model |
+| e. Three different solutions | `model1_naive_bayes.py`, `model2_tfidf_linear.py`, `model3_distilbert.py` |
+| f. Comparison with Accuracy/Precision/Recall/F1 | `src/evaluation.py` -> `results/` |
 
 ## Data / tool sources (for the References section)
 

@@ -11,7 +11,7 @@ import re
 import nltk
 from bs4 import BeautifulSoup
 from nltk.corpus import stopwords, wordnet
-from nltk.stem import WordNetLemmatizer
+from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 
 
@@ -28,6 +28,7 @@ def ensure_nltk() -> None:
 ensure_nltk()
 
 _LEMMATIZER = WordNetLemmatizer()
+_STEMMER = PorterStemmer()
 _STOPWORDS = set(stopwords.words("english"))
 # Negation words carry sentiment ("not good"), so we keep them.
 _KEEP = {"not", "no", "nor", "never", "n't", "against", "very", "too", "but"}
@@ -48,7 +49,12 @@ def _wordnet_pos(tag: str):
     return wordnet.NOUN
 
 
-def clean_text(text: str, lemmatize: bool = True, remove_stopwords: bool = True) -> str:
+def clean_text(
+    text: str,
+    lemmatize: bool = True,
+    remove_stopwords: bool = True,
+    stem: bool = False,
+) -> str:
     """Full cleaning pipeline used by the classical ML models."""
     if not isinstance(text, str):
         return ""
@@ -77,6 +83,10 @@ def clean_text(text: str, lemmatize: bool = True, remove_stopwords: bool = True)
             tokens = [_LEMMATIZER.lemmatize(tok, _wordnet_pos(tag)) for tok, tag in tagged]
         except Exception:
             tokens = [_LEMMATIZER.lemmatize(tok) for tok in tokens]
+
+    # 7. Optional Porter stemming (comparison experiment: stemming vs lemmatisation)
+    if stem and tokens:
+        tokens = [_STEMMER.stem(tok) for tok in tokens]
 
     return " ".join(tokens)
 

@@ -22,7 +22,7 @@ def main(dataset: str, sample: int | None, with_bert: bool) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dataset", default="cornell", choices=["cornell", "imdb"])
+    parser.add_argument("--dataset", default="cornell", choices=["cornell", "imdb", "crawled"])
     parser.add_argument("--sample", type=int, default=None)
     parser.add_argument("--with_bert", action="store_true", help="Also fine-tune DistilBERT")
     args = parser.parse_args()
