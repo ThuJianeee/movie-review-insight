@@ -43,7 +43,7 @@ def main(dataset: str, sample: int | None) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dataset", default="cornell", choices=["cornell", "imdb"])
+    parser.add_argument("--dataset", default="cornell", choices=["cornell", "imdb", "crawled"])
     parser.add_argument("--sample", type=int, default=None, help="Use only N reviews (quick test)")
     args = parser.parse_args()
     main(args.dataset, args.sample)

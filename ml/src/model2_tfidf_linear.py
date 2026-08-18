@@ -51,7 +51,7 @@ def main(dataset: str, sample: int | None, algorithm: str) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dataset", default="cornell", choices=["cornell", "imdb"])
+    parser.add_argument("--dataset", default="cornell", choices=["cornell", "imdb", "crawled"])
     parser.add_argument("--sample", type=int, default=None)
     parser.add_argument("--algorithm", default="logreg", choices=["logreg", "svm"])
     args = parser.parse_args()

@@ -106,7 +106,7 @@ def main(dataset: str, sample: int | None, epochs: int, batch_size: int, max_len
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dataset", default="cornell", choices=["cornell", "imdb"])
+    parser.add_argument("--dataset", default="cornell", choices=["cornell", "imdb", "crawled"])
     parser.add_argument("--sample", type=int, default=None)
     parser.add_argument("--epochs", type=int, default=2)
     parser.add_argument("--batch_size", type=int, default=16)
